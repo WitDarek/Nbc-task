@@ -14,7 +14,7 @@ import pl.nbctask.model.ReportRow;
  *
  * @author plewandowski
  */
-public abstract class AbstractInvestment {
+public abstract class Investment {
 
     public Report calculate(Integer amountForInvest, List<InvestmentFund> investmentFunds)
             throws MandatoryFundInvestmentException {

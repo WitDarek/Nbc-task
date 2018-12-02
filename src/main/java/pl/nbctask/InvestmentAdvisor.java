@@ -4,8 +4,6 @@ import pl.nbctask.model.InvestmentFund;
 import pl.nbctask.model.Report;
 import pl.nbctask.enums.InvestmentStyle;
 import pl.nbctask.exceptions.UnsupportedStyleException;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +23,7 @@ public abstract class InvestmentAdvisor {
             case BALANCED: {
                 break;
             }
-            case SAVE: {
+            case SAFE: {
                 break;
             }
             default:{

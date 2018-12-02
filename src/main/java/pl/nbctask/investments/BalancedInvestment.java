@@ -8,7 +8,7 @@ import pl.nbctask.enums.FundType;
  *
  * @author plewandowski
  */
-public class BalancedInvestment extends AbstractInvestment {
+public class BalancedInvestment extends Investment {
 
     @Override
     public Map<FundType, Integer> getPercentages() {

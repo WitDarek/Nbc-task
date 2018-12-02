@@ -1,6 +1,6 @@
 package pl.nbctask.investments;
 
-import pl.nbctask.investments.AbstractInvestment;
+import pl.nbctask.investments.Investment;
 import java.util.HashMap;
 import java.util.Map;
 import pl.nbctask.enums.FundType;
@@ -9,7 +9,7 @@ import pl.nbctask.enums.FundType;
  *
  * @author plewandowski
  */
-public class SafeInvestment extends AbstractInvestment {
+public class SafeInvestment extends Investment {
 
     @Override
     public Map<FundType, Integer> getPercentages() {
