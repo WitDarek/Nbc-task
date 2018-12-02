@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import pl.nbctask.enums.FundType;
+import pl.nbctask.exceptions.InvestedAmountException;
 import pl.nbctask.exceptions.MandatoryFundInvestmentException;
 import pl.nbctask.model.InvestmentFund;
 import pl.nbctask.model.Report;
@@ -17,9 +18,13 @@ import pl.nbctask.model.ReportRow;
 public abstract class Investment {
 
     public Report calculate(Integer amountForInvest, List<InvestmentFund> investmentFunds)
-            throws MandatoryFundInvestmentException {
+            throws MandatoryFundInvestmentException, 
+            InvestedAmountException {
         if (!isMandatoryFundTypesPresent(investmentFunds)) {
             throw new MandatoryFundInvestmentException("Investment funds must contains equal amount of fund types to declared in investment style");
+        }
+        if(amountForInvest < 1){
+            throw new InvestedAmountException("You cannot invest non positive amount of money");
         }
 
         Report report = new Report();
@@ -35,7 +40,12 @@ public abstract class Investment {
 
             int amountForType = amountForInvest * percentageForFund / 100;
             int partForType = amountForType / fundsForType.size();
-            int restForType = amountForType % partForType;
+
+            int restForType = 0;
+
+            if (partForType != 0) {
+                restForType = amountForType % partForType;
+            }
 
             for (InvestmentFund investmentFund : fundsForType) {
                 ReportRow reportRow = new ReportRow(investmentFund, partForType + restForType);
@@ -46,7 +56,10 @@ public abstract class Investment {
             investedAmount += amountForType;
         }
 
-        int uninvestedAmount = amountForInvest % investedAmount;
+        int uninvestedAmount = 0;
+        if (investedAmount != 0) {
+            uninvestedAmount = amountForInvest % investedAmount;
+        }
         report.setUnnasignedAmount(uninvestedAmount);
 
         return report;
@@ -59,7 +72,7 @@ public abstract class Investment {
                 .stream()
                 .map(e -> e.getFundType())
                 .collect(Collectors.toSet());
-        
+
         return fundTypesForDivide.containsAll(givenFundTypes) && givenFundTypes.containsAll(fundTypesForDivide);
     }
 
