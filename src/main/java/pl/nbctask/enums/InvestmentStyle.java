@@ -7,5 +7,6 @@ package pl.nbctask.enums;
 public enum InvestmentStyle {
     SAFE,
     BALANCED,
-    AGGRESIVE
+    AGGRESIVE,
+    DUMMY, // for testing purpose
 }
