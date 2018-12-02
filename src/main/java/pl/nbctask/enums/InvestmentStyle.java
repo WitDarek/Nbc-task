@@ -1,4 +1,4 @@
-package pl.nbctask;
+package pl.nbctask.enums;
 
 /**
  *
