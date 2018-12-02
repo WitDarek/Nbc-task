@@ -2,7 +2,6 @@ package pl.nbctask.investments;
 
 import static junit.framework.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *

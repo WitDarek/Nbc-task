@@ -1,6 +1,5 @@
 package pl.nbctask.investments;
 
-import pl.nbctask.investments.Investment;
 import java.util.HashMap;
 import java.util.Map;
 import pl.nbctask.enums.FundType;

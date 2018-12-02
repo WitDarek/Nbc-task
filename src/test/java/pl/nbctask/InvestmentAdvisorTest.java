@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import pl.nbctask.enums.InvestmentStyle;
-import pl.nbctask.exceptions.InvestedAmountException;
-import pl.nbctask.exceptions.MandatoryFundInvestmentException;
 import pl.nbctask.exceptions.UnsupportedStyleException;
 import pl.nbctask.model.InvestmentFund;
 
