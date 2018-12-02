@@ -47,7 +47,7 @@ public abstract class Investment {
                 restForType = amountForType % partForType;
             }
 
-            for (InvestmentFund investmentFund : fundsForType) {
+            for (InvestmentFund investmentFund : fundsForType) {             
                 ReportRow reportRow = new ReportRow(investmentFund, partForType + restForType);
                 report.addReportRow(reportRow);
                 restForType = 0;
@@ -61,7 +61,8 @@ public abstract class Investment {
             uninvestedAmount = amountForInvest % investedAmount;
         }
         report.setUnnasignedAmount(uninvestedAmount);
-
+        report.calculatePercentage();
+        
         return report;
     }
 

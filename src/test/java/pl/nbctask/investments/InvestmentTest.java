@@ -1,12 +1,13 @@
 package pl.nbctask.investments;
 
-import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import org.junit.Ignore;
 import pl.nbctask.enums.FundType;
 import pl.nbctask.exceptions.InvestedAmountException;
 import pl.nbctask.exceptions.MandatoryFundInvestmentException;
@@ -63,7 +64,7 @@ public class InvestmentTest {
 
         Report expected = new Report();
         for (InvestmentFund investmentFund : investmentFunds) {
-            ReportRow reportRow = new ReportRow(investmentFund, 0);
+            ReportRow reportRow = new ReportRow(investmentFund, 0, 0f);
             expected.addReportRow(reportRow);
         }
         expected.setUnnasignedAmount(0);
@@ -87,7 +88,7 @@ public class InvestmentTest {
 
         Report expected = new Report();
         for (InvestmentFund investmentFund : investmentFunds) {
-            ReportRow reportRow = new ReportRow(investmentFund, 0);
+            ReportRow reportRow = new ReportRow(investmentFund, 0, 0f);
             expected.addReportRow(reportRow);
         }
         expected.setUnnasignedAmount(0);
@@ -110,12 +111,12 @@ public class InvestmentTest {
         List<InvestmentFund> investmentFunds = Stream.of(polish1, polish2, foreign1, foreign2, foreign3, monetary1).collect(Collectors.toList());
 
         Report expected = new Report();
-        expected.addReportRow(new ReportRow(polish1, 1000));
-        expected.addReportRow(new ReportRow(polish2, 1000));
-        expected.addReportRow(new ReportRow(foreign1, 2500));
-        expected.addReportRow(new ReportRow(foreign2, 2500));
-        expected.addReportRow(new ReportRow(foreign3, 2500));
-        expected.addReportRow(new ReportRow(monetary1, 500));
+        expected.addReportRow(new ReportRow(polish1, 1000, 10.0f));
+        expected.addReportRow(new ReportRow(polish2, 1000, 10.0f));
+        expected.addReportRow(new ReportRow(foreign1, 2500, 25.0f));
+        expected.addReportRow(new ReportRow(foreign2, 2500, 25.0f));
+        expected.addReportRow(new ReportRow(foreign3, 2500, 25.0f));
+        expected.addReportRow(new ReportRow(monetary1, 500, 5.0f));
         expected.setUnnasignedAmount(0);
 
         Investment investment = new DummyInvestment();
@@ -136,12 +137,12 @@ public class InvestmentTest {
         List<InvestmentFund> investmentFunds = Stream.of(polish1, polish2, foreign1, foreign2, foreign3, monetary1).collect(Collectors.toList());
 
         Report expected = new Report();
-        expected.addReportRow(new ReportRow(polish1, 1000));
-        expected.addReportRow(new ReportRow(polish2, 1000));
-        expected.addReportRow(new ReportRow(foreign1, 2500));
-        expected.addReportRow(new ReportRow(foreign2, 2500));
-        expected.addReportRow(new ReportRow(foreign3, 2500));
-        expected.addReportRow(new ReportRow(monetary1, 500));
+        expected.addReportRow(new ReportRow(polish1, 1000, 10.0f));
+        expected.addReportRow(new ReportRow(polish2, 1000, 10.0f));
+        expected.addReportRow(new ReportRow(foreign1, 2500, 25.0f));
+        expected.addReportRow(new ReportRow(foreign2, 2500, 25.0f));
+        expected.addReportRow(new ReportRow(foreign3, 2500, 25.0f));
+        expected.addReportRow(new ReportRow(monetary1, 500, 5.0f));
         expected.setUnnasignedAmount(1);
 
         Investment investment = new DummyInvestment();
@@ -162,12 +163,12 @@ public class InvestmentTest {
         List<InvestmentFund> investmentFunds = Stream.of(polish1, polish2, polish3, foreign2, foreign3, monetary1).collect(Collectors.toList());
 
         Report expected = new Report();
-        expected.addReportRow(new ReportRow(polish1, 668));
-        expected.addReportRow(new ReportRow(polish2, 666));
-        expected.addReportRow(new ReportRow(polish3, 666));
-        expected.addReportRow(new ReportRow(foreign2, 3750));
-        expected.addReportRow(new ReportRow(foreign3, 3750));
-        expected.addReportRow(new ReportRow(monetary1, 500));
+        expected.addReportRow(new ReportRow(polish1, 668, 6.68f));
+        expected.addReportRow(new ReportRow(polish2, 666, 6.66f));
+        expected.addReportRow(new ReportRow(polish3, 666, 6.66f));
+        expected.addReportRow(new ReportRow(foreign2, 3750, 37.5f));
+        expected.addReportRow(new ReportRow(foreign3, 3750, 37.5f));
+        expected.addReportRow(new ReportRow(monetary1, 500, 5.0f));
         expected.setUnnasignedAmount(0);
 
         Investment investment = new DummyInvestment();
@@ -176,5 +177,49 @@ public class InvestmentTest {
 
         assertEquals(expected, result);
     }
+
+//    @Test
+//    public void ffdf() {
+//        ReportRowListBuilder fundsBuilder = new ReportRowListBuilder();
+//
+//        List<ReportRow> ff = fundsBuilder
+//                .addRow(FundType.POLISH, 10, 6.f)
+//                .addRow(FundType.POLISH, 10, 6.f)
+//                .addRow(FundType.MONETARY, 10, 6.f)
+//                .addRow(FundType.MONETARY, 10, 6.f)
+//                .build();
+//
+//        System.out.println(ff);
+//    }
+//
+//    private class ReportRowListBuilder {
+//
+//        Map<FundType, List<ReportRow>> funds = new HashMap<>();
+//
+//        public ReportRowListBuilder addRow(FundType fundType, int amount, float percentage) {
+//            List<ReportRow> reportRows = funds.get(fundType);
+//
+//            if (reportRows == null) {
+//                reportRows = new ArrayList<>();
+//            }
+//
+//            long number = reportRows.size() + 1;
+//            String fundName = fundType.getName() + " " + number;
+//
+//            InvestmentFund investmentFund = new InvestmentFund(number, fundName, fundType);
+//            ReportRow reportRow = new ReportRow(investmentFund, amount, percentage);
+//            reportRows.add(reportRow);
+//            funds.put(fundType, reportRows);
+//
+//            return this;
+//        }
+//
+//        public List<ReportRow> build() {
+//            return funds.values()
+//                    .stream()
+//                    .flatMap(e -> e.stream())
+//                    .collect(Collectors.toList());
+//        }
+//    }
 
 }

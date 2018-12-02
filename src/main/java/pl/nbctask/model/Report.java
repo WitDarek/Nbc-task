@@ -23,6 +23,19 @@ public class Report {
         unnasignedAmount = value;
     }
 
+    public void calculatePercentage() {
+        float investedMoney = reportRows.stream().map(e -> e.getAmount()).mapToInt(e -> e).sum();
+
+        reportRows.forEach(e -> {
+            float percentage = 0;
+            if (investedMoney != 0) {
+                percentage = (e.getAmount() * 100) / investedMoney;
+            }
+
+            e.setPercentage(percentage);
+        });
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -40,9 +53,9 @@ public class Report {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 61 * hash + Objects.hashCode(this.reportRows);
-        hash = 61 * hash + this.unnasignedAmount;
+        int hash = 5;
+        hash = 23 * hash + Objects.hashCode(this.reportRows);
+        hash = 23 * hash + this.unnasignedAmount;
         return hash;
     }
 
