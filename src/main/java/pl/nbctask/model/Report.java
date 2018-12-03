@@ -1,6 +1,5 @@
 package pl.nbctask.model;
 
-import pl.nbctask.model.ReportRow;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -78,8 +77,8 @@ public class Report {
         if (this.unnasignedAmount != other.unnasignedAmount) {
             return false;
         }
-        if (this.reportRows.containsAll(other.getReportRows()) && other.getReportRows().containsAll(reportRows)) {
-            return true;
+        if (!Objects.equals(this.reportRows, other.reportRows)) {
+            return false;
         }
         return true;
     }
