@@ -18,12 +18,12 @@ import pl.nbctask.model.ReportRow;
 public abstract class Investment {
 
     public Report calculate(Integer amountForInvest, List<InvestmentFund> investmentFunds)
-            throws MandatoryFundInvestmentException, 
+            throws MandatoryFundInvestmentException,
             InvestedAmountException {
         if (!isMandatoryFundTypesPresent(investmentFunds)) {
             throw new MandatoryFundInvestmentException("Investment funds must contains equal amount of fund types to declared in investment style");
         }
-        if(amountForInvest < 1){
+        if (amountForInvest < 1) {
             throw new InvestedAmountException("You cannot invest non positive amount of money");
         }
 
@@ -31,39 +31,39 @@ public abstract class Investment {
         int investedAmount = 0;
 
         for (FundType fundType : FundType.values()) {
-            List<InvestmentFund> fundsForType = investmentFunds
-                    .stream()
-                    .filter(e -> e.getFundType() == fundType)
-                    .collect(Collectors.toList());
-
+            List<InvestmentFund> fundsForType = getInvestmentFundsForType(investmentFunds, fundType);
             Integer percentageForFund = getPercentages().get(fundType);
 
-            int amountForType = amountForInvest * percentageForFund / 100;
-            int partForType = amountForType / fundsForType.size();
+            if (percentageForFund != null) {
+                int amountForType = amountForInvest * percentageForFund / 100;
+                int partForType = amountForType / fundsForType.size();
 
-            int restForType = 0;
+                int restForType = calculateRestForType(amountForType, partForType);
 
-            if (partForType != 0) {
-                restForType = amountForType % partForType;
+                for (InvestmentFund investmentFund : fundsForType) {
+                    ReportRow reportRow = new ReportRow(investmentFund, partForType + restForType);
+                    report.addReportRow(reportRow);
+                    restForType = 0;
+                }
+
+                investedAmount += amountForType;
             }
-
-            for (InvestmentFund investmentFund : fundsForType) {             
-                ReportRow reportRow = new ReportRow(investmentFund, partForType + restForType);
-                report.addReportRow(reportRow);
-                restForType = 0;
-            }
-
-            investedAmount += amountForType;
         }
 
-        int uninvestedAmount = 0;
-        if (investedAmount != 0) {
-            uninvestedAmount = amountForInvest % investedAmount;
-        }
-        report.setUnnasignedAmount(uninvestedAmount);
+        report.setUnnasignedAmount(amountForInvest - investedAmount);
         report.calculatePercentage();
-        
+
         return report;
+    }
+
+    private int calculateRestForType(int amountForType, int partForType) {
+        int restForType = 0;
+
+        if (partForType != 0) {
+            restForType = amountForType % partForType;
+        }
+
+        return restForType;
     }
 
     private boolean isMandatoryFundTypesPresent(List<InvestmentFund> investmentFunds) {
@@ -75,6 +75,13 @@ public abstract class Investment {
                 .collect(Collectors.toSet());
 
         return fundTypesForDivide.containsAll(givenFundTypes) && givenFundTypes.containsAll(fundTypesForDivide);
+    }
+
+    private List<InvestmentFund> getInvestmentFundsForType(List<InvestmentFund> investmentFunds, FundType fundType) {
+        return investmentFunds
+                .stream()
+                .filter(e -> e.getFundType() == fundType)
+                .collect(Collectors.toList());
     }
 
     public abstract Map<FundType, Integer> getPercentages();

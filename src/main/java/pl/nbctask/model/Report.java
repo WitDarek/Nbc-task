@@ -19,6 +19,10 @@ public class Report {
         return this;
     }
 
+    public List<ReportRow> getReportRows() {
+        return reportRows;
+    }
+
     public void setUnnasignedAmount(int value) {
         unnasignedAmount = value;
     }
@@ -74,8 +78,8 @@ public class Report {
         if (this.unnasignedAmount != other.unnasignedAmount) {
             return false;
         }
-        if (!Objects.equals(this.reportRows, other.reportRows)) {
-            return false;
+        if (this.reportRows.containsAll(other.getReportRows()) && other.getReportRows().containsAll(reportRows)) {
+            return true;
         }
         return true;
     }

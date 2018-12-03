@@ -64,7 +64,7 @@ public class InvestmentTest {
             ReportRow reportRow = new ReportRow(investmentFund, 0, 0f);
             expected.addReportRow(reportRow);
         }
-        expected.setUnnasignedAmount(0);
+        expected.setUnnasignedAmount(1);
 
         Investment investment = new DummyInvestment();
 
@@ -160,8 +160,8 @@ public class InvestmentTest {
         List<InvestmentFund> investmentFunds = Stream.of(polish1, polish2, polish3, foreign2, foreign3, monetary1).collect(Collectors.toList());
 
         Report expected = new Report();
-        expected.addReportRow(new ReportRow(polish1, 668, 6.68f));
         expected.addReportRow(new ReportRow(polish2, 666, 6.66f));
+        expected.addReportRow(new ReportRow(polish1, 668, 6.68f));
         expected.addReportRow(new ReportRow(polish3, 666, 6.66f));
         expected.addReportRow(new ReportRow(foreign2, 3750, 37.5f));
         expected.addReportRow(new ReportRow(foreign3, 3750, 37.5f));
@@ -169,6 +169,26 @@ public class InvestmentTest {
         expected.setUnnasignedAmount(0);
 
         Investment investment = new DummyInvestment();
+
+        Report result = investment.calculate(10000, investmentFunds);
+
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void calculate_ShouldInvestCorrectly4() throws MandatoryFundInvestmentException, InvestedAmountException {
+        InvestmentFund polish1 = new InvestmentFund(1L, "Fundusz polski 1", FundType.POLISH);
+        InvestmentFund monetary1 = new InvestmentFund(4L, "Fundusz monetarny 1", FundType.MONETARY);
+
+        List<InvestmentFund> investmentFunds = Stream.of(polish1, monetary1).collect(Collectors.toList());
+
+        Report expected = new Report();
+        expected.addReportRow(new ReportRow(polish1, 5000, 50.0f));
+        expected.addReportRow(new ReportRow(monetary1, 5000, 50.0f));
+
+        expected.setUnnasignedAmount(0);
+
+        Investment investment = new DividedInvestment();
 
         Report result = investment.calculate(10000, investmentFunds);
 

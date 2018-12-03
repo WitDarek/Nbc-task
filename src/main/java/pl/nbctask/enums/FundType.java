@@ -7,5 +7,5 @@ package pl.nbctask.enums;
 public enum FundType {
     POLISH,
     FOREIGN,
-    MONETARY;
+    MONETARY,
 }
