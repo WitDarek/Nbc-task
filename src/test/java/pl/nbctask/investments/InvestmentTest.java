@@ -26,7 +26,7 @@ public class InvestmentTest {
 
     @Test(expected = MandatoryFundInvestmentException.class)
     public void calculate_ShouldThrowExceptionWhenLessInvestmentFundsIsGivenThanDefiniedInPercentageDivision()
-            throws MandatoryFundInvestmentException, InvestedAmountException {
+            throws MandatoryFundInvestmentException, InvestedAmountException, Exception {
         InvestmentFund polish1 = new InvestmentFund(1L, "Fundusz polski 1", FundType.POLISH);
 
         List<InvestmentFund> investmentFunds = Stream.of(polish1).collect(Collectors.toList());
@@ -38,7 +38,7 @@ public class InvestmentTest {
 
     @Test(expected = MandatoryFundInvestmentException.class)
     public void calculate_ShouldThrowExceptionWhenMoreInvestmentFundsIsGivenThanDefiniedInPercentageDivision()
-            throws MandatoryFundInvestmentException, InvestedAmountException {
+            throws MandatoryFundInvestmentException, InvestedAmountException, Exception {
         InvestmentFund polish1 = new InvestmentFund(1L, "Fundusz polski 1", FundType.POLISH);
         InvestmentFund foregin1 = new InvestmentFund(3L, "Fundusz zagraniczny 1", FundType.FOREIGN);
 
@@ -50,7 +50,7 @@ public class InvestmentTest {
     }
 
     @Test
-    public void calculate_ShouldNotInvestMoneyIfAmountIsTooLow() throws MandatoryFundInvestmentException, InvestedAmountException {
+    public void calculate_ShouldNotInvestMoneyIfAmountIsTooLow() throws MandatoryFundInvestmentException, InvestedAmountException, Exception {
         InvestmentFund polish1 = new InvestmentFund(1L, "Fundusz polski 1", FundType.POLISH);
         InvestmentFund polish2 = new InvestmentFund(2L, "Fundusz polski 2", FundType.POLISH);
         InvestmentFund foregin1 = new InvestmentFund(3L, "Fundusz zagraniczny 1", FundType.FOREIGN);
@@ -74,7 +74,7 @@ public class InvestmentTest {
     }
 
     @Test(expected = InvestedAmountException.class)
-    public void calculate_ShouldThrowExceptionIfAmountIsNotPositive() throws MandatoryFundInvestmentException, InvestedAmountException {
+    public void calculate_ShouldThrowExceptionIfAmountIsNotPositive() throws MandatoryFundInvestmentException, InvestedAmountException, Exception {
         InvestmentFund polish1 = new InvestmentFund(1L, "Fundusz polski 1", FundType.POLISH);
         InvestmentFund polish2 = new InvestmentFund(2L, "Fundusz polski 2", FundType.POLISH);
         InvestmentFund foregin1 = new InvestmentFund(3L, "Fundusz zagraniczny 1", FundType.FOREIGN);
@@ -98,7 +98,7 @@ public class InvestmentTest {
     }
 
     @Test
-    public void calculate_ShouldInvestCorrectly1() throws MandatoryFundInvestmentException, InvestedAmountException {
+    public void calculate_ShouldInvestCorrectly1() throws MandatoryFundInvestmentException, InvestedAmountException, Exception {
         InvestmentFund polish1 = new InvestmentFund(1L, "Fundusz polski 1", FundType.POLISH);
         InvestmentFund polish2 = new InvestmentFund(2L, "Fundusz polski 2", FundType.POLISH);
         InvestmentFund foreign1 = new InvestmentFund(3L, "Fundusz zagraniczny 1", FundType.FOREIGN);
@@ -124,7 +124,7 @@ public class InvestmentTest {
     }
 
     @Test
-    public void calculate_ShouldInvestCorrectly2() throws MandatoryFundInvestmentException, InvestedAmountException {
+    public void calculate_ShouldInvestCorrectly2() throws MandatoryFundInvestmentException, InvestedAmountException, Exception {
         InvestmentFund polish1 = new InvestmentFund(1L, "Fundusz polski 1", FundType.POLISH);
         InvestmentFund polish2 = new InvestmentFund(2L, "Fundusz polski 2", FundType.POLISH);
         InvestmentFund foreign1 = new InvestmentFund(3L, "Fundusz zagraniczny 1", FundType.FOREIGN);
@@ -150,7 +150,7 @@ public class InvestmentTest {
     }
 
     @Test
-    public void calculate_ShouldInvestCorrectly3() throws MandatoryFundInvestmentException, InvestedAmountException {
+    public void calculate_ShouldInvestCorrectly3() throws MandatoryFundInvestmentException, InvestedAmountException, Exception {
         InvestmentFund polish1 = new InvestmentFund(1L, "Fundusz polski 1", FundType.POLISH);
         InvestmentFund polish2 = new InvestmentFund(2L, "Fundusz polski 2", FundType.POLISH);
         InvestmentFund polish3 = new InvestmentFund(3L, "Fundusz polski 3", FundType.POLISH);
@@ -176,7 +176,7 @@ public class InvestmentTest {
     }
 
     @Test
-    public void calculate_ShouldInvestCorrectly4() throws MandatoryFundInvestmentException, InvestedAmountException {
+    public void calculate_ShouldInvestCorrectly4() throws MandatoryFundInvestmentException, InvestedAmountException, Exception {
         InvestmentFund polish1 = new InvestmentFund(1L, "Fundusz polski 1", FundType.POLISH);
         InvestmentFund monetary1 = new InvestmentFund(2L, "Fundusz monetarny 1", FundType.MONETARY);
 
