@@ -21,7 +21,7 @@ public abstract class Investment {
             throws MandatoryFundInvestmentException,
             InvestedAmountException {
         if (!isMandatoryFundTypesPresent(investmentFunds)) {
-            throw new MandatoryFundInvestmentException("Investment funds must contains equal amount of fund types to declared in investment style");
+            throw new MandatoryFundInvestmentException("");
         }
         if (amountForInvest < 1) {
             throw new InvestedAmountException("You cannot invest non positive amount of money");
