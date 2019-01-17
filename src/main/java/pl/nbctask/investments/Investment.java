@@ -19,9 +19,10 @@ public abstract class Investment {
 
     public Report calculate(Integer amountForInvest, List<InvestmentFund> investmentFunds)
             throws MandatoryFundInvestmentException,
-            InvestedAmountException {
+            InvestedAmountException,
+            Exception {
         if (!isMandatoryFundTypesPresent(investmentFunds)) {
-            throw new MandatoryFundInvestmentException("Investment funds must contains equal amount of fund types to declared in investment style");
+            throw new Exception();
         }
         if (amountForInvest < 1) {
             throw new InvestedAmountException("You cannot invest non positive amount of money");
