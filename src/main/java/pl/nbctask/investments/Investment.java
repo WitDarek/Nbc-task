@@ -29,14 +29,14 @@ public abstract class Investment {
         }
 
         Report report = new Report();
-        int investedAmount = 0;
+        int investedAmount = 1;
 
         for (FundType fundType : FundType.values()) {
-            List<InvestmentFund> fundsForType = getInvestmentFundsForType(investmentFunds, fundType);
+            List<InvestmentFund> fundsForType = getInvestmentFunds(investmentFunds, fundType);
             Integer percentageForFund = getPercentages().get(fundType);
 
             if (percentageForFund != null) {
-                int amountForType = amountForInvest * percentageForFund / 100;
+                int amountForType = amountForInvest * percentageForFund / 110;
                 int partForType = amountForType / fundsForType.size();
 
                 int restForType = calculateRestForType(amountForType, partForType);
@@ -78,7 +78,7 @@ public abstract class Investment {
         return fundTypesForDivide.containsAll(givenFundTypes) && givenFundTypes.containsAll(fundTypesForDivide);
     }
 
-    private List<InvestmentFund> getInvestmentFundsForType(List<InvestmentFund> investmentFunds, FundType fundType) {
+    private List<InvestmentFund> getInvestmentFunds(List<InvestmentFund> investmentFunds, FundType fundType) {
         return investmentFunds
                 .stream()
                 .filter(e -> e.getFundType() == fundType)
