@@ -20,7 +20,7 @@ public abstract class InvestmentAdvisor {
 
     public static Report calculateInvestment(Integer amount,
             List<InvestmentFund> funds,
-            InvestmentStyle style) throws UnsupportedStyleException, MandatoryFundInvestmentException, InvestedAmountException {
+            InvestmentStyle style) throws UnsupportedStyleException, MandatoryFundInvestmentException, InvestedAmountException, Exception {
 
         Investment investment;
 
